@@ -51,10 +51,14 @@ curl 'https://calendar.google.com/calendar/ical/ht3jlfaac5lfd6263ulfh4tql8%40gro
 ## Building and installing
 
 to build the utility:
+```
   ./configure && make all
+```
 
 to install the utility:
-  ./configure && make all && make install
+```
+./configure && make all && make install
+```
 
 ### Library
 
