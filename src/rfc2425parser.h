@@ -12,6 +12,8 @@
 #ifndef RFC2425PARSER_DATA_H
 #define RFC2425PARSER_DATA_H
 
+#define YYLMAX 200 /* 200 is well above the maximum line size of 75 specified by the RFC */
+
 struct rfc2425parser_data;
 typedef struct rfc2425parser_data * rfc2425parser_handle;
 

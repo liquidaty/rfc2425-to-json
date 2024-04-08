@@ -74,7 +74,7 @@ clean:
 	@rm -rf ${BUILD_DIR}
 
 ${BUILD_DIR}/rfc2425parser.lex.c ${BUILD_DIR}/rfc2425parser.lex.h: src/rfc2425parser.l
-	cd ${BUILD_DIR} && flex -o $$(basename $@) ${THIS_MAKEFILE_DIR}/$<
+	cd ${BUILD_DIR} && flex -DYYLMAX=200 -o $$(basename $@) ${THIS_MAKEFILE_DIR}/$<
 
 ${BUILD_DIR}/rfc2425parser.tab.c ${BUILD_DIR}/rfc2425parser.tab.h: src/rfc2425parser.y
 	bison27 -vd -o $@ $<

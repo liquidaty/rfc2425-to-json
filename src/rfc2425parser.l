@@ -12,9 +12,25 @@
 %option reentrant bison-bridge
 %option prefix="rfc2425parser_"
 %option noyywrap nounput noinput
+ /*
+   Use %array to set a maximum buffer size. We parse each line
+   as a separate token, so our buffer should accommodate at least
+   the maximum line size of 75 specified by the RFC.
+   Our build instructions will define YYLMAX to be 200.
+ */
+%array
 
 %{
 #include <rfc2425parser.tab.h>
+
+static void my_fatal_err(const char *msg, void *scanner) {
+  if(!strcmp(msg, "token too large, exceeds YYLMAX"))
+    msg = "Invalid format: CRLF-terminated line is too long";
+  fprintf(stderr, "%s\n", msg);
+  exit(2);
+}
+
+#define YY_FATAL_ERROR(msg) my_fatal_err(msg, yyscanner);
 
 static char *strdup_and_escape(const char *s, unsigned truncate_len) {
   size_t len = strlen(s) - truncate_len;
